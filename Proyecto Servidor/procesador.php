@@ -63,3 +63,21 @@ $total += $linea['precio_dia'] * $dias;
 return $total;
 }
 
+/**
+* Determina la categoría de descuento o suplemento según el total.
+*
+* @param float $total Importe total de la reserva.
+*
+* @return string Nombre de la categoría aplicada.
+*/
+
+function categoriaReserva(float $total): string
+{
+// match(true) evalúa cada condición directamente, de arriba abajo
+return match (true) {
+$total >= 1000 => 'Descuento flota premium (15%)',
+$total >= 500 => 'Descuento cliente frecuente (8%)',
+$total >= 100 => 'Tarifa estándar',
+default => 'Suplemento reserva corta (+5%)',
+};
+}
