@@ -22,15 +22,6 @@ echo 'Error 400: el parámetro "dias" debe ser un número entero positivo.';
 exit; // Finaliza el proceso
 }
 
-// Trazabilidad: mostrar tipos y valores dentro de <pre>
-ob_start();
-var_dump($diasRecibidos); // imprime el tipo exacto y el valor de la variable 
-var_dump($dias); 
-$inspeccion = ob_get_clean();//devuelve lo del bufer de salida y lo limpia
-
-echo '<h2>Inspección técnica</h2>';
-echo '<pre>' . htmlspecialchars($inspeccion, ENT_QUOTES, 'UTF-8') . '</pre>';
-
 
 
 // BLOQUE 2: Función de facturación, excepciones y categorías

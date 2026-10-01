@@ -1,5 +1,32 @@
 <?php
-declare(strict_types=1);// esto es el tipado estricto 
+declare(strict_types=1);
+
+require_once 'procesador.php';
+
+$lineasReserva = [
+    [
+        'vehiculo' => 'Renault Zoé',
+        'precio_dia' => 40.0
+    ],
+    [
+        'vehiculo' => 'Citroën ë-C4',
+        'precio_dia' => 50.0
+    ],
+];
+
+try {
+    $total = procesarReserva($lineasReserva, $dias);
+    $categoria = categoriaReserva($total);
+} catch (InvalidArgumentException $e) {
+    http_response_code(400);
+    echo 'Error: ' . htmlspecialchars(
+        $e->getMessage(),
+        ENT_QUOTES | ENT_SUBSTITUTE,
+        'UTF-8'
+    );
+    exit;
+}
+
 
 // Mostrar todos los errores durante el desarrollo
 error_reporting(E_ALL);
@@ -76,6 +103,15 @@ JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNI
 </head>
 <body>
 <h1>Reporte de flota EcoDrive</h1>
+<h2>Inspección técnica</h2>
+
+<pre>
+<?php
+var_dump($diasRecibidos);
+var_dump($dias);
+?>
+</pre>
+
 
 <?= $reporte ?>
 
