@@ -5,7 +5,7 @@ require_once 'procesador.php';
 
 $lineasReserva = [
     [
-        'vehiculo' => 'Renault Zoé',
+        'vehiculo' => 'Renault',
         'precio_dia' => 40.0
     ],
     [
@@ -15,6 +15,7 @@ $lineasReserva = [
 ];
 
 try {
+
     $total = procesarReserva($lineasReserva, $dias);
     $categoria = categoriaReserva($total);
 } catch (InvalidArgumentException $e) {
@@ -121,3 +122,9 @@ console.log('Autonomías de la flota:', autonomias);
 </script>
 </body>
 </html>
+
+<?php
+
+$html = ob_get_clean();
+
+echo $html;
