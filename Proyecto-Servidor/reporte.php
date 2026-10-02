@@ -60,17 +60,17 @@ usort($flota, function (array $a, array $b): int {
 return $b['autonomia'] <=> $a['autonomia'];
 });
 
-// BLOQUE 4: Generar el reporte en memoria (búfer)
+// BLOQUE 4: Generar el reporte en memoria (bufer)
 
 ob_start(); // A partir de aquí, el echo NO sale al navegador
 
-echo '<table border="1" cellpadding="6">';
+echo '<table border="1" cellpadding="6">';//crea la tabla
 echo '<tr><th>Modelo</th><th>Categoría</th><th>Autonomía (km)</th><th>Longitud</th><th>isset(descuento)</th><th>array_key_exists(descuento)</th></tr>';
 
-foreach ($flota as $coche) {
-// isset: false si la clave no existe O si vale null
+foreach ($flota as $coche) {    //aqui recorre cada coche de flota 
+// comprueba si hay o no descuento
 $conIsset = isset($coche['descuento']) ? 'sí' : 'no';
-// array_key_exists: true si la clave existe, aunque valga null
+// aqui si exite o no la clave 
 $conKey = array_key_exists('descuento', $coche) ? 'sí' : 'no';
 
 // htmlspecialchars evita XSS en el HTML
@@ -85,10 +85,9 @@ echo '</tr>';
 }
 echo '</table>';
 
-$reporte = ob_get_clean(); // Guardamos el HTML en una variable y cerramos el búfer
+$reporte = ob_get_clean(); // Guardamos el HTML en reporte y cerramos el bufer
 
-// Datos para JavaScript, codificados de forma segura
-// Los flags JSON_HEX_* convierten < > ' " & en secuencias seguras
+// aqui preparamos la informacion para usarla en JS
 $datosJs = json_encode(
 array_column($flota, 'autonomia', 'nombre'),
 JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
@@ -107,7 +106,7 @@ JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNI
 
 <pre>
 <?php
-var_dump($diasRecibidos);
+var_dump($diasRecibidos);//aqui vemos la informacion que tienen
 var_dump($dias);
 ?>
 </pre>
@@ -116,7 +115,7 @@ var_dump($dias);
 <?= $reporte ?>
 
 <script>
-// Objeto JS con {nombre: autonomía}
+// objeto JS con {nombre: autonomía}
 const autonomias = <?= $datosJs ?>;
 console.log('Autonomías de la flota:', autonomias);
 </script>

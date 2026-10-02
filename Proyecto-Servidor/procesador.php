@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 declare(strict_types=1); // esto es el tipado estricto 
 
 // Mostrar todos los errores durante el desarrollo
@@ -64,7 +67,7 @@ return $total;
 
 function categoriaReserva(float $total): string
 {
-// match(true) evalúa cada condición directamente, de arriba abajo
+// match evalua cada condicion de arriba abajo 
 return match (true) {
 $total >= 1000 => 'Descuento flota premium (15%)',
 $total >= 500 => 'Descuento cliente frecuente (8%)',
